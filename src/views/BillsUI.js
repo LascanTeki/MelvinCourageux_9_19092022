@@ -1,7 +1,6 @@
 import VerticalLayout from './VerticalLayout.js'
 import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
-
 import Actions from './Actions.js'
 
 const row = (bill) => {
@@ -20,11 +19,9 @@ const row = (bill) => {
 }
 
 const rows = (data) => {
-  const newdata = [...data].sort(
-    function (a, b) {
-      return new Date(b.date) - new Date(a.date);
-    }
-  )
+  const antiChrono = (a, b) => ((a.date < b.date) ? 1 : -1)
+  const newdata = [...data].sort(antiChrono)
+  console.log("...",newdata)
   return (newdata && newdata.length) ? newdata.map(bill => row(bill)).join("") : ""
 }
 

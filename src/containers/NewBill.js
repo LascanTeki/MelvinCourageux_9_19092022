@@ -25,7 +25,7 @@ export default class NewBill {
     formData.append('file', file)
     formData.append('email', email)
 
-    if (e.target.value.includes('jpg') || e.target.value.includes('jpeg') || e.target.value.includes('png')) {
+    if (e.target.files[0].type.includes('image/jpeg') || e.target.files[0].type.includes('image/png')) {
       this.store
         .bills()
         .create({
@@ -35,7 +35,6 @@ export default class NewBill {
           },
         })
         .then(({ fileUrl, key }) => {
-          console.log(fileUrl)
           this.billId = key
           this.fileUrl = fileUrl
           this.fileName = fileName
@@ -52,9 +51,10 @@ export default class NewBill {
     }
   }
   handleSubmit = e => {
-    e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    e.preventDefault(e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    console.log(e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
+    console.log();
     const bill = {
       email,
       type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
