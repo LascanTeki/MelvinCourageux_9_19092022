@@ -54,7 +54,7 @@ describe("Given I am connected as an employee", () => {
       expect(handleClick).toHaveBeenCalled()
     })
 
-    test("when clicking on NewBill the user should be taken to the NewBill page ", () => {
+    test("Then when clicking on NewBill the user should be taken to the NewBill page ", () => {
       const onNavigate = jest.fn();
       new Bills({ document, localStorage: window.localStorage, onNavigate, location, store });
       const bill = screen.getByTestId("btn-new-bill")
@@ -72,24 +72,22 @@ describe("Given I am connected as an employee", () => {
       router()
       window.onNavigate(ROUTES_PATH.Bills)
       await waitFor(() => screen.getByText("Mes notes de frais"))
-      const contentPending = await screen.getByText("Transports")
-      expect(contentPending).toBeTruthy()
-      const contentRefused = await screen.getByText("Hôtel et logement")
-      expect(contentRefused).toBeTruthy()
-      expect(screen.getByTestId("btn-new-bill")).toBeTruthy()
+      const trans = await screen.getByText("Transports")
+      expect(trans).toBeTruthy()
+      const hotel = await screen.getByText("Hôtel et logement")
+      expect(hotel).toBeTruthy()
     })
 
     describe("When an error occurs on API", () => {
-      test("fetches bills from an API and fails with 404 message error", async () => {
-
+      
+      test("Then the 404 message error is displayed", async () => {
         const html = BillsUI({ error: "Erreur 404" })
         document.body.innerHTML = html
         const message = await screen.getByText(/Erreur 404/)
         expect(message).toBeTruthy()
       })
 
-      test("fetches messages from an API and fails with 500 message error", async () => {
-
+      test("Then the 500 message error is displayed", async () => {
         const html = BillsUI({ error: "Erreur 500" })
         document.body.innerHTML = html
         const message = await screen.getByText(/Erreur 500/)
