@@ -2,15 +2,19 @@
  * @jest-environment jsdom
  */
 
-import { screen, waitFor } from "@testing-library/dom"
+import { waitFor, screen } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
-import { ROUTES_PATH } from "../constants/routes.js";
+import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import { toHaveClass } from '@testing-library/jest-dom'
-import mockStore from "../__mocks__/store"
-
 import router from "../app/Router.js";
+import userEvent from '@testing-library/user-event'
+import Bills from '../containers/Bills'
+import store from "../__mocks__/store"
+import { fireEvent } from '@testing-library/dom';
+
+let location = ""
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -32,15 +36,31 @@ describe("Given I am connected as an employee", () => {
     })
     test("Then bills should be ordered from earliest to latest", () => {
       document.body.innerHTML = BillsUI({ data: bills })
-      console.log(BillsUI({ data: bills }));
       const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
       const antiChrono = (a, b) => ((a < b) ? 1 : -1)
       const datesSorted = [...dates].sort(antiChrono)
-      console.log(datesSorted);
-      console.log(dates);
       expect(dates).toEqual(datesSorted)
     })
 
+    test("Then handleClickIconEye should be called on eye clicking on the eye icon", () => {
+      $.fn.modal = jest.fn();
+      const onNavigate = jest.fn()
+      document.body.innerHTML = BillsUI({ data: bills })
+      let Bill = new Bills({ document, localStorage: window.localStorage, onNavigate, store });
+      const button = screen.getAllByTestId("icon-eye")[0]
+      const handleClick = jest.fn(() => { Bill.handleClickIconEye(button) });
+      button.addEventListener("click", handleClick)
+      userEvent.click(button)
+      expect(handleClick).toHaveBeenCalled()
+    })
+
+    test("when clicking on NewBill the user should be taken to the NewBill page ", () => {
+      const onNavigate = jest.fn();
+      new Bills({ document, localStorage: window.localStorage, onNavigate, location, store });
+      const bill = screen.getByTestId("btn-new-bill")
+      fireEvent.click(bill)
+      expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH['NewBill'])
+    })
 
     // test d'intégration GET
 
@@ -76,8 +96,6 @@ describe("Given I am connected as an employee", () => {
         expect(message).toBeTruthy()
       })
     })
-
-
 
   })
 
