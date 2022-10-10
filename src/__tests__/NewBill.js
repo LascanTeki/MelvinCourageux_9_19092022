@@ -56,12 +56,9 @@ describe("Given I am connected as an employee", () => {
       const onNavigate = jest.fn();
       const newBill = new NewBill({document, onNavigate, store: store, localStorage: window.localStorage})
       screen.getByTestId("expense-type").value ="Transport"
-      screen.getByTestId("expense-name").value ="nn"
-      screen.getByTestId("amount").value ="857"
+      screen.getByTestId("expense-name").value = screen.getByTestId("commentary").value = "nn"
+      screen.getByTestId("amount").value = screen.getByTestId("vat").value = screen.getByTestId("pct").value ="857"
       screen.getByTestId("datepicker").value = "13/10/2022"
-      screen.getByTestId("vat").value = "78378"
-      screen.getByTestId("pct").value = "753"
-      screen.getByTestId("commentary").value = "nn"
       const text = new File(['hello'], 'hello.txt', {type: 'text/plain'})
       const handleChangeFile = jest.fn((e)=>{newBill.handleChangeFile(e)});
       const file = screen.getByTestId("file")
