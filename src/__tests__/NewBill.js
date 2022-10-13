@@ -55,19 +55,31 @@ describe("Given I am connected as an employee", () => {
     test("Then clicking submit when everything is filled should redirect to Bill ", () =>{
       const onNavigate = jest.fn();
       const newBill = new NewBill({document, onNavigate, store: store, localStorage: window.localStorage})
-      screen.getByTestId("expense-type").value ="Transport"
-      screen.getByTestId("expense-name").value = screen.getByTestId("commentary").value = "nn"
-      screen.getByTestId("amount").value = screen.getByTestId("vat").value = screen.getByTestId("pct").value ="857"
-      screen.getByTestId("datepicker").value = "13/10/2022"
-      const text = new File(['hello'], 'hello.txt', {type: 'text/plain'})
-      const handleChangeFile = jest.fn((e)=>{newBill.handleChangeFile(e)});
-      const file = screen.getByTestId("file")
-      file.addEventListener("change", handleChangeFile);
-      fireEvent.change(file, {target: {files: [text]}})
+      const newbillSpy = jest.spyOn(newBill, "updateBill")
+      const email = JSON.parse(localStorage.getItem("user")).email
+      const mockedBill = {
+        email,
+        type: "Transports",
+        name:  "nn",
+        amount: 857,
+        date: "2022-10-23",
+        vat: "857",
+        pct: 857,
+        commentary: "nn",
+        fileUrl:'https://images.com/hello.png',
+        fileName: 'hello.png',
+        status: 'pending'
+      }
+      screen.getByTestId("expense-type").value = mockedBill.type
+      screen.getByTestId("expense-name").value = screen.getByTestId("commentary").value = mockedBill.name
+      screen.getByTestId("amount").value = screen.getByTestId("vat").value = screen.getByTestId("pct").value =mockedBill.amount
+      screen.getByTestId("datepicker").value =mockedBill.date
+      newBill.fileUrl = mockedBill.fileUrl
+      newBill.fileName = mockedBill.fileName
       let validate = screen.getByTestId("submit")
       fireEvent.click(validate)
       expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH['Bills'])
-
+      expect(newbillSpy).toHaveBeenCalledWith(mockedBill)
     })
   })
 })
