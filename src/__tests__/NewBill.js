@@ -5,12 +5,10 @@
 import { waitFor, screen } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
-import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
+import { ROUTES_PATH } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import { toHaveClass } from '@testing-library/jest-dom'
 import router from "../app/Router.js";
-import userEvent from '@testing-library/user-event'
-import Bills from '../containers/Bills'
 import store from "../__mocks__/store"
 import { fireEvent } from '@testing-library/dom';
 
@@ -57,6 +55,7 @@ describe("Given I am connected as an employee", () => {
       const newBill = new NewBill({document, onNavigate, store: store, localStorage: window.localStorage})
       const newbillSpy = jest.spyOn(newBill, "updateBill")
       const email = JSON.parse(localStorage.getItem("user")).email
+      //Fake input infos
       const mockedBill = {
         email,
         type: "Transports",
