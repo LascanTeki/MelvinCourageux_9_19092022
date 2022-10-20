@@ -62,7 +62,7 @@ describe("Given I am connected as an employee", () => {
       expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH['NewBill'])
     })
 
-    // tests error messages
+    // tests error messages GET
 
     test("fetches bills from mock API GET", async () => {
       localStorage.setItem("user", JSON.stringify({ type: "Employee", email: "employee@test.tld" }));
