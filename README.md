@@ -9,7 +9,6 @@
 - HTML
 - JS
 - CSS 
-- React
 - Jest
 - Bootstrap
 
