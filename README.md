@@ -1,10 +1,32 @@
 
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)    [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)   [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)    [![Jquerry Badge](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)](https://dev.to/envoy_/150-badges-for-github-pnk) [![Bootstrap Badge](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://dev.to/envoy_/150-badges-for-github-pnk) [![Jest Badge](https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white)](https://dev.to/envoy_/150-badges-for-github-pnk)
+
+# Billed
+
+![Billed](https://user.oc-static.com/upload/2020/08/14/1597396368627_image2.png)
+
+## Technologies
+- HTML
+- JS
+- CSS 
+- React
+- Jest
+- Bootstrap
+
+## Authors
+
+- Melvin Courageux, Front End Developper
+
+## Description
+
+Ce projet a pour but de tester et debugger un Saas RH grâce à Jest, ce projet est une introduction au tests unitaires et End-To-End.
+
 ## L'architecture du projet :
 Ce projet, dit frontend, est connecté à un service API backend que vous devez aussi lancer en local.
 
 Le projet backend se trouve ici: https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
 
-## Organiser son espace de travai :
+## Organiser son espace de travail :
 Pour une bonne organization, vous pouvez créer un dossier bill-app dans lequel vous allez cloner le projet backend et par la suite, le projet frontend:
 
 Clonez le projet backend dans le dossier bill-app :
